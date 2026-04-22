@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Мужско-личное в польском</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #f7f4ee; --paper: #fffdf8; --dark: #1c1812; --mid: #4a3f2f; --muted: #9a8c78;
+  --m: #b5341a; --ml: #fdf0ec; --mb: #e8c4ba;
+  --nm: #1a5e8a; --nml: #eaf4fb; --nmb: #b8d9ef;
+  --yes: #1e7a3c; --no: #b5341a; --gold: #c8973a;
+  --sh: 0 2px 16px rgba(28,24,18,.10);
+}
+body { background:var(--bg); color:var(--dark); font-family:'Fraunces',Georgia,serif; font-size:18px; line-height:1.65; }
+header { background:var(--dark); color:var(--bg); padding:52px 24px 44px; text-align:center; position:relative; }
+header::after { content:''; display:block; height:4px; background:linear-gradient(90deg,var(--m),var(--gold),var(--nm)); position:absolute; bottom:0; left:0; right:0; }
+header h1 { font-size:clamp(1.9rem,5vw,3rem); font-weight:900; line-height:1.15; letter-spacing:-.5px; }
+header h1 em { color:var(--gold); font-style:italic; }
+header p { margin-top:12px; font-size:.95rem; color:rgba(247,244,238,.55); font-family:'IBM Plex Mono',monospace; letter-spacing:.5px; }
+main { max-width:860px; margin:0 auto; padding:0 20px 80px; }
+.label { display:inline-block; font-family:'IBM Plex Mono',monospace; font-size:.7rem; font-weight:600; letter-spacing:2.5px; text-transform:uppercase; background:var(--dark); color:var(--gold); padding:4px 12px; border-radius:2px; margin-bottom:14px; }
+.intro { margin:52px 0 56px; display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+@media(max-width:600px){ .intro{grid-template-columns:1fr;} }
+.intro-card { border-radius:10px; overflow:hidden; box-shadow:var(--sh); }
+.intro-card .head { padding:18px 22px 14px; color:#fff; font-weight:700; font-size:1.1rem; }
+.intro-card.m .head { background:var(--m); }
+.intro-card.nm .head { background:var(--nm); }
+.intro-card .head .pl { font-size:1.35rem; display:block; font-style:italic; }
+.intro-card .body { background:var(--paper); padding:16px 22px 20px; font-size:.95rem; color:var(--mid); }
+.intro-card .body strong { color:var(--dark); }
+.flowchart-wrap { margin:0 0 60px; }
+.flowchart-wrap h2 { font-size:1.5rem; font-weight:700; margin-bottom:24px; }
+.flow-svg-wrap { width:100%; overflow-x:auto; }
+.flow-svg-wrap svg { display:block; margin:0 auto; max-width:100%; }
+.examples-section { margin:0 0 60px; }
+.examples-section h2 { font-size:1.4rem; font-weight:700; margin-bottom:20px; }
+.ex-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+@media(max-width:580px){ .ex-grid{grid-template-columns:1fr;} }
+.ex-item { background:var(--paper); border-radius:10px; overflow:hidden; box-shadow:var(--sh); display:flex; }
+.ex-bar { width:6px; flex-shrink:0; }
+.ex-bar.m { background:var(--m); } .ex-bar.nm { background:var(--nm); }
+.ex-content { padding:14px 16px; flex:1; }
+.ex-word { font-weight:700; font-size:1.1rem; font-style:italic; }
+.ex-word.m { color:var(--m); } .ex-word.nm { color:var(--nm); }
+.ex-type { font-family:'IBM Plex Mono',monospace; font-size:.7rem; letter-spacing:1.5px; text-transform:uppercase; font-weight:600; margin:2px 0 6px; }
+.ex-type.m { color:var(--m); } .ex-type.nm { color:var(--nm); }
+.ex-reason { font-size:.88rem; color:var(--mid); line-height:1.5; }
+.ex-chain { font-family:'IBM Plex Mono',monospace; font-size:.75rem; color:var(--muted); margin-top:6px; }
+.ex-chain span { color:var(--dark); font-weight:600; }
+.border-section { margin:0 0 60px; }
+.border-section h2 { font-size:1.4rem; font-weight:700; margin-bottom:8px; }
+.border-section > p { color:var(--mid); font-size:.95rem; margin-bottom:20px; }
+.border-card { background:var(--paper); border-radius:10px; box-shadow:var(--sh); margin-bottom:12px; overflow:hidden; }
+.border-head { display:flex; align-items:center; gap:14px; padding:16px 20px; cursor:pointer; user-select:none; }
+.border-head:hover { background:#f0ebe0; }
+.border-icon { font-size:1.4rem; flex-shrink:0; }
+.border-q { font-weight:700; font-size:1rem; flex:1; }
+.border-toggle { font-family:'IBM Plex Mono',monospace; font-size:.85rem; color:var(--muted); transition:transform .2s; }
+.border-body { display:none; padding:0 20px 18px 54px; font-size:.95rem; color:var(--mid); line-height:1.65; border-top:1px solid #ece7da; }
+.border-body.open { display:block; }
+.border-body strong { color:var(--dark); }
+.border-body p { margin-top:8px; }
+.border-body p:first-child { margin-top:12px; }
+.verdict { display:inline-block; border-radius:4px; padding:3px 10px; font-family:'IBM Plex Mono',monospace; font-size:.78rem; font-weight:600; letter-spacing:1px; text-transform:uppercase; margin-top:10px; margin-right:6px; }
+.verdict.m { background:var(--ml); color:var(--m); border:1px solid var(--mb); }
+.verdict.nm { background:var(--nml); color:var(--nm); border:1px solid var(--nmb); }
+.verdict.both { background:#f5f0e8; color:var(--mid); border:1px solid #d9d0be; }
+.default-section { background:var(--dark); color:var(--bg); border-radius:12px; padding:36px 36px 38px; margin:0 0 60px; box-shadow:0 8px 40px rgba(28,24,18,.18); }
+.default-section h2 { font-size:1.4rem; font-weight:700; color:var(--gold); margin-bottom:6px; }
+.rule-text { font-size:1.05rem; color:rgba(247,244,238,.85); margin:14px 0 24px; line-height:1.7; }
+.rule-text strong { color:#fff; }
+.def-examples { display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:10px; }
+.def-ex { background:rgba(255,255,255,.07); border:1px solid rgba(200,151,58,.3); border-radius:8px; padding:14px 16px; }
+.def-ex .pl { font-style:italic; font-weight:700; font-size:1.05rem; color:var(--gold); }
+.def-ex .ru { font-size:.85rem; color:rgba(247,244,238,.6); margin-top:3px; }
+.def-ex .why { font-family:'IBM Plex Mono',monospace; font-size:.72rem; color:rgba(247,244,238,.45); margin-top:6px; }
+.quiz-section { margin:0 0 60px; }
+.quiz-section h2 { font-size:1.4rem; font-weight:700; margin-bottom:8px; }
+.quiz-section > p { color:var(--mid); font-size:.95rem; margin-bottom:22px; }
+.quiz-item { background:var(--paper); border-radius:10px; padding:20px 22px 22px; margin-bottom:12px; box-shadow:var(--sh); }
+.qword { font-style:italic; font-size:1.25rem; font-weight:700; margin-bottom:4px; }
+.qhint { font-size:.85rem; color:var(--muted); margin-bottom:14px; font-family:'IBM Plex Mono',monospace; }
+.quiz-btns { display:flex; gap:10px; flex-wrap:wrap; }
+.qbtn { border:2px solid; border-radius:6px; padding:8px 20px; font-family:'Fraunces',serif; font-size:.95rem; cursor:pointer; transition:background .15s,transform .1s; background:transparent; }
+.qbtn.m-btn { border-color:var(--m); color:var(--m); }
+.qbtn.nm-btn { border-color:var(--nm); color:var(--nm); }
+.qbtn:hover:not(:disabled) { transform:translateY(-1px); }
+.qbtn.m-btn:hover:not(:disabled) { background:var(--ml); }
+.qbtn.nm-btn:hover:not(:disabled) { background:var(--nml); }
+.qbtn.correct { background:#1e7a3c!important; border-color:#1e7a3c!important; color:#fff!important; }
+.qbtn.wrong { background:#b5341a!important; border-color:#b5341a!important; color:#fff!important; }
+.qbtn:disabled { cursor:default; transform:none; }
+.qfeedback { margin-top:10px; font-size:.88rem; font-style:italic; min-height:1.3em; color:var(--mid); }
+.qfeedback.ok { color:var(--yes); } .qfeedback.bad { color:var(--no); }
+.quiz-score { text-align:right; font-family:'IBM Plex Mono',monospace; font-size:.85rem; color:var(--muted); margin-top:4px; }
+footer { text-align:center; padding:28px; background:var(--dark); color:rgba(247,244,238,.35); font-family:'IBM Plex Mono',monospace; font-size:.78rem; letter-spacing:.5px; }
+@keyframes fadeUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+.intro-card,.ex-item,.border-card,.def-ex,.quiz-item { animation:fadeUp .5s ease both; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Как определить:<br><em>мужско-личное</em> или нет?</h1>
+  <p>польский язык · męskoosobowy vs niemęskoosobowy</p>
+</header>
+
+<main>
+
+<section style="margin-top:52px;margin-bottom:56px;">
+  <div class="label">Суть различия</div>
+  <div class="intro">
+    <div class="intro-card m">
+      <div class="head">Мужско-личное<span class="pl">męskoosobowy</span></div>
+      <div class="body">Слово обозначает <strong>человека (лицо) мужского пола</strong> — или группу, в которой есть хотя бы один такой человек.</div>
+    </div>
+    <div class="intro-card nm">
+      <div class="head">Немужско-личное<span class="pl">niemęskoosobowy</span></div>
+      <div class="body"><strong>Всё остальное</strong> — женщины, дети, животные, предметы, явления, понятия. Даже самцы животных.</div>
+    </div>
+  </div>
+</section>
+
+<section class="flowchart-wrap">
+  <div class="label">Алгоритм определения</div>
+  <h2>Задай три вопроса по порядку</h2>
+  <div class="flow-svg-wrap">
+<svg viewBox="0 0 680 580" xmlns="http://www.w3.org/2000/svg" width="680" height="580">
+<defs>
+  <marker id="a0" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#9a8c78"/></marker>
+  <marker id="ay" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#1e7a3c"/></marker>
+  <marker id="an" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#b5341a"/></marker>
+</defs>
+
+<!-- START -->
+<rect x="190" y="14" width="300" height="42" rx="21" fill="#1c1812"/>
+<text x="340" y="31" text-anchor="middle" fill="#c8973a" font-size="11" font-family="IBM Plex Mono,monospace" font-weight="600">СЛОВО ВО МН. ЧИСЛЕ</text>
+<text x="340" y="47" text-anchor="middle" fill="#c8973a" font-size="10" font-family="IBM Plex Mono,monospace">нужно определить его тип</text>
+
+<!-- START -> Q1 -->
+<line x1="340" y1="56" x2="340" y2="86" stroke="#9a8c78" stroke-width="2" marker-end="url(#a0)"/>
+
+<!-- Q1 -->
+<rect x="80" y="90" width="520" height="72" rx="10" fill="#fffdf8" stroke="#1c1812" stroke-width="2"/>
+<text x="340" y="113" text-anchor="middle" fill="#1c1812" font-size="13" font-weight="700" font-family="Fraunces,serif">① Поставь в единственное число.</text>
+<text x="340" y="132" text-anchor="middle" fill="#1c1812" font-size="13" font-weight="700" font-family="Fraunces,serif">Это обозначает человека / личность?</text>
+<text x="340" y="153" text-anchor="middle" fill="#9a8c78" font-size="10" font-family="IBM Plex Mono,monospace">(существо с именем, речью, самосознанием — не животное, не предмет)</text>
+
+<!-- Q1 НЕТ -> left -> НМЛ-1 -->
+<line x1="80" y1="126" x2="38" y2="126" stroke="#b5341a" stroke-width="2"/>
+<line x1="38" y1="126" x2="38" y2="296" stroke="#b5341a" stroke-width="2"/>
+<line x1="38" y1="296" x2="75" y2="296" stroke="#b5341a" stroke-width="2" marker-end="url(#an)"/>
+<text x="56" y="120" text-anchor="middle" fill="#b5341a" font-size="11" font-weight="700" font-family="IBM Plex Mono,monospace">НЕТ</text>
+
+<!-- НМЛ-1 (не личность) -->
+<rect x="75" y="272" width="180" height="50" rx="25" fill="#1a5e8a"/>
+<text x="165" y="294" text-anchor="middle" fill="#fff" font-size="12" font-weight="700" font-family="Fraunces,serif">НЕМУЖСКО-</text>
+<text x="165" y="310" text-anchor="middle" fill="#fff" font-size="12" font-weight="700" font-family="Fraunces,serif">ЛИЧНОЕ</text>
+<text x="165" y="332" text-anchor="middle" fill="rgba(26,94,138,.6)" font-size="9" font-family="IBM Plex Mono,monospace">не личность</text>
+
+<!-- Q1 ДА -> down -->
+<line x1="340" y1="162" x2="340" y2="192" stroke="#1e7a3c" stroke-width="2" marker-end="url(#ay)"/>
+<text x="354" y="181" fill="#1e7a3c" font-size="11" font-weight="700" font-family="IBM Plex Mono,monospace">ДА</text>
+
+<!-- Q2 -->
+<rect x="80" y="196" width="520" height="66" rx="10" fill="#fffdf8" stroke="#1c1812" stroke-width="2"/>
+<text x="340" y="219" text-anchor="middle" fill="#1c1812" font-size="13" font-weight="700" font-family="Fraunces,serif">② Это слово мужского рода</text>
+<text x="340" y="238" text-anchor="middle" fill="#1c1812" font-size="13" font-weight="700" font-family="Fraunces,serif">в единственном числе?</text>
+<text x="340" y="256" text-anchor="middle" fill="#9a8c78" font-size="10" font-family="IBM Plex Mono,monospace">student — м.р. ✓  |  studentka — ж.р. ✗  |  dziecko — ср.р. ✗</text>
+
+<!-- Q2 НЕТ -> right -> НМЛ-2 -->
+<line x1="600" y1="229" x2="645" y2="229" stroke="#b5341a" stroke-width="2"/>
+<line x1="645" y1="229" x2="645" y2="380" stroke="#b5341a" stroke-width="2"/>
+<line x1="645" y1="380" x2="607" y2="380" stroke="#b5341a" stroke-width="2" marker-end="url(#an)"/>
+<text x="625" y="222" text-anchor="middle" fill="#b5341a" font-size="11" font-weight="700" font-family="IBM Plex Mono,monospace">НЕТ</text>
+
+<!-- НМЛ-2 (ж.р./ср.р.) -->
+<rect x="427" y="356" width="180" height="50" rx="25" fill="#1a5e8a"/>
+<text x="517" y="378" text-anchor="middle" fill="#fff" font-size="12" font-weight="700" font-family="Fraunces,serif">НЕМУЖСКО-</text>
+<text x="517" y="394" text-anchor="middle" fill="#fff" font-size="12" font-weight="700" font-family="Fraunces,serif">ЛИЧНОЕ</text>
+<text x="517" y="416" text-anchor="middle" fill="rgba(26,94,138,.6)" font-size="9" font-family="IBM Plex Mono,monospace">ж.р. или ср.р.</text>
+
+<!-- Q2 ДА -> down -->
+<line x1="340" y1="262" x2="340" y2="292" stroke="#1e7a3c" stroke-width="2" marker-end="url(#ay)"/>
+<text x="354" y="281" fill="#1e7a3c" font-size="11" font-weight="700" font-family="IBM Plex Mono,monospace">ДА</text>
+
+<!-- Q3 -->
+<rect x="80" y="296" width="520" height="66" rx="10" fill="#fffdf8" stroke="#1c1812" stroke-width="2"/>
+<text x="340" y="319" text-anchor="middle" fill="#1c1812" font-size="13" font-weight="700" font-family="Fraunces,serif">③ Это именно ЧЕЛОВЕК,</text>
+<text x="340" y="338" text-anchor="middle" fill="#1c1812" font-size="13" font-weight="700" font-family="Fraunces,serif">а не животное мужского пола?</text>
+<text x="340" y="356" text-anchor="middle" fill="#9a8c78" font-size="10" font-family="IBM Plex Mono,monospace">кот-самец, кобель, бык — не «личности»</text>
+
+<!-- Q3 НЕТ -> left -> НМЛ-3 -->
+<line x1="80" y1="329" x2="38" y2="329" stroke="#b5341a" stroke-width="2"/>
+<line x1="38" y1="329" x2="38" y2="466" stroke="#b5341a" stroke-width="2"/>
+<line x1="38" y1="466" x2="75" y2="466" stroke="#b5341a" stroke-width="2" marker-end="url(#an)"/>
+<text x="56" y="323" text-anchor="middle" fill="#b5341a" font-size="11" font-weight="700" font-family="IBM Plex Mono,monospace">НЕТ</text>
+
+<!-- НМЛ-3 (животное) -->
+<rect x="75" y="442" width="180" height="50" rx="25" fill="#1a5e8a"/>
+<text x="165" y="464" text-anchor="middle" fill="#fff" font-size="12" font-weight="700" font-family="Fraunces,serif">НЕМУЖСКО-</text>
+<text x="165" y="480" text-anchor="middle" fill="#fff" font-size="12" font-weight="700" font-family="Fraunces,serif">ЛИЧНОЕ</text>
+<text x="165" y="502" text-anchor="middle" fill="rgba(26,94,138,.6)" font-size="9" font-family="IBM Plex Mono,monospace">животное</text>
+
+<!-- Q3 ДА -> down -> МЛ -->
+<line x1="340" y1="362" x2="340" y2="464" stroke="#1e7a3c" stroke-width="2" marker-end="url(#ay)"/>
+<text x="354" y="417" fill="#1e7a3c" font-size="11" font-weight="700" font-family="IBM Plex Mono,monospace">ДА</text>
+
+<!-- МЛ result -->
+<rect x="210" y="468" width="260" height="52" rx="26" fill="#b5341a"/>
+<text x="340" y="491" text-anchor="middle" fill="#fff" font-size="14" font-weight="700" font-family="Fraunces,serif">МУЖСКО-ЛИЧНОЕ</text>
+<text x="340" y="509" text-anchor="middle" fill="rgba(255,255,255,.7)" font-size="10" font-family="IBM Plex Mono,monospace">męskoosobowy</text>
+
+<!-- niemęskoosobowy labels on НМЛ boxes -->
+<text x="165" y="346" text-anchor="middle" fill="rgba(26,94,138,.6)" font-size="9" font-family="IBM Plex Mono,monospace">niemęskoosobowy</text>
+<text x="517" y="430" text-anchor="middle" fill="rgba(26,94,138,.6)" font-size="9" font-family="IBM Plex Mono,monospace">niemęskoosobowy</text>
+<text x="165" y="516" text-anchor="middle" fill="rgba(26,94,138,.6)" font-size="9" font-family="IBM Plex Mono,monospace">niemęskoosobowy</text>
+<text x="340" y="538" text-anchor="middle" fill="rgba(181,52,26,.5)" font-size="9" font-family="IBM Plex Mono,monospace">męskoosobowy</text>
+</svg>
+  </div>
+</section>
+
+<section class="examples-section">
+  <div class="label">Примеры — разбор по шагам</div>
+  <h2>Пройдём по алгоритму</h2>
+  <div class="ex-grid">
+
+    <div class="ex-item"><div class="ex-bar m"></div><div class="ex-content">
+      <div class="ex-word m">studenci</div><div class="ex-type m">мужско-личное</div>
+      <div class="ex-reason">Ед.ч. → <em>student</em>. ① Человек? ДА. ② Мужской род? ДА. ③ Именно человек? ДА.</div>
+      <div class="ex-chain">личность <span>✓</span> · м.р. <span>✓</span> · человек <span>✓</span> → МЛ</div>
+    </div></div>
+
+    <div class="ex-item"><div class="ex-bar nm"></div><div class="ex-content">
+      <div class="ex-word nm">studentki</div><div class="ex-type nm">немужско-личное</div>
+      <div class="ex-reason">Ед.ч. → <em>studentka</em>. ① Человек? ДА. ② Мужской род? НЕТ (женский). Стоп.</div>
+      <div class="ex-chain">личность <span>✓</span> · ж.р. <span style="color:var(--no)">✗</span> → НМЛ</div>
+    </div></div>
+
+    <div class="ex-item"><div class="ex-bar nm"></div><div class="ex-content">
+      <div class="ex-word nm">koty</div><div class="ex-type nm">немужско-личное</div>
+      <div class="ex-reason">Ед.ч. → <em>kot</em>. ① Человек / личность? НЕТ — животное. Стоп сразу.</div>
+      <div class="ex-chain">животное <span style="color:var(--no)">✗</span> → НМЛ (хотя kot — м.р.!)</div>
+    </div></div>
+
+    <div class="ex-item"><div class="ex-bar nm"></div><div class="ex-content">
+      <div class="ex-word nm">stoły</div><div class="ex-type nm">немужско-личное</div>
+      <div class="ex-reason">Ед.ч. → <em>stół</em>. ① Человек? НЕТ — предмет. Стоп сразу.</div>
+      <div class="ex-chain">предмет <span style="color:var(--no)">✗</span> → НМЛ</div>
+    </div></div>
+
+    <div class="ex-item"><div class="ex-bar nm"></div><div class="ex-content">
+      <div class="ex-word nm">dzieci</div><div class="ex-type nm">немужско-личное</div>
+      <div class="ex-reason">Ед.ч. → <em>dziecko</em> (ср.р.). ① Человек? ДА. ② Мужской род? НЕТ — средний. Стоп.</div>
+      <div class="ex-chain">личность <span>✓</span> · ср.р. <span style="color:var(--no)">✗</span> → НМЛ</div>
+    </div></div>
+
+    <div class="ex-item"><div class="ex-bar m"></div><div class="ex-content">
+      <div class="ex-word m">aktorzy</div><div class="ex-type m">мужско-личное</div>
+      <div class="ex-reason">Ед.ч. → <em>aktor</em>. ① Человек? ДА. ② Мужской род? ДА. ③ Человек (не животное)? ДА.</div>
+      <div class="ex-chain">личность <span>✓</span> · м.р. <span>✓</span> · человек <span>✓</span> → МЛ</div>
+    </div></div>
+
+  </div>
+</section>
+
+<section class="border-section">
+  <div class="label">Пограничные случаи</div>
+  <h2>А вот это как?</h2>
+  <p>Нажми на карточку, чтобы раскрыть разбор.</p>
+
+  <div class="border-card">
+    <div class="border-head" onclick="tog(this)">
+      <span class="border-icon">⚔️</span>
+      <span class="border-q">Мифические существа мужского пола: боги, эльфы, черти, драконы</span>
+      <span class="border-toggle">▼</span>
+    </div>
+    <div class="border-body">
+      <p>Ключевой вопрос: <strong>воспринимается ли существо как личность?</strong> Есть ли у него имя, речь, воля, самосознание?</p>
+      <p><strong>Bogowie</strong> (боги) — личности с именами (Zeus, Perun), говорят, действуют → <strong>мужско-личные</strong>. <em>Bogowie przyszli.</em></p>
+      <p><strong>Elfy, krasnoludy, diabły</strong> — воспринимаются как личности мужского пола → <strong>мужско-личные</strong>. <em>Diabli przyszli.</em></p>
+      <p><strong>Smoki</strong> (драконы) — зверь-чудовище без личности → <strong>немужско-личные</strong>. <em>Smoki latały.</em></p>
+      <p><strong>Правило:</strong> говорит + имеет имя + воспринимается как субъект → МЛ. Просто зверь/чудище → НМЛ.</p>
+      <div class="verdict m">личность + м.р. → МЛ</div>
+      <div class="verdict nm">зверь/чудище → НМЛ</div>
+    </div>
+  </div>
+
+  <div class="border-card">
+    <div class="border-head" onclick="tog(this)">
+      <span class="border-icon">🐕</span>
+      <span class="border-q">Самцы животных: kot (м.р.), pies (м.р.) — ведь мужской род?</span>
+      <span class="border-toggle">▼</span>
+    </div>
+    <div class="border-body">
+      <p>Животные <strong>никогда</strong> не бывают мужско-личными — даже если слово мужского рода и особь самец.</p>
+      <p>Вопрос ③ в алгоритме специально для этого: даже пройдя ① и ②, на ③ ответ «НЕТ — это животное».</p>
+      <p><em>Koty spały.</em> (не <em>spali</em>) — хотя <em>kot</em> мужского рода.</p>
+      <p><em>Psy biegły.</em> — хотя <em>pies</em> мужского рода.</p>
+      <div class="verdict nm">животные всегда → НМЛ</div>
+    </div>
+  </div>
+
+  <div class="border-card">
+    <div class="border-head" onclick="tog(this)">
+      <span class="border-icon">👩‍⚕️</span>
+      <span class="border-q">Профессии мужского рода: lekarze, żołnierze — в группе могут быть женщины</span>
+      <span class="border-toggle">▼</span>
+    </div>
+    <div class="border-body">
+      <p>Если пол людей в группе <strong>неизвестен</strong> — польский по умолчанию использует мужско-личную форму слова мужского рода.</p>
+      <p><em>Lekarze przyszli.</em> — врачи пришли (пол неизвестен) → МЛ.</p>
+      <p>Но если <strong>точно известно, что все женщины</strong>: <em>Lekarki przyszły.</em> → НМЛ.</p>
+      <p><strong>Смешанная группа</strong> (хотя бы один мужчина) → всегда МЛ: <em>Mama i tata poszli.</em></p>
+      <div class="verdict m">неизвестно / смесь → МЛ</div>
+      <div class="verdict nm">только женщины → НМЛ</div>
+    </div>
+  </div>
+
+  <div class="border-card">
+    <div class="border-head" onclick="tog(this)">
+      <span class="border-icon">👶</span>
+      <span class="border-q">Dzieci (дети) — люди, но среди них могут быть мальчики!</span>
+      <span class="border-toggle">▼</span>
+    </div>
+    <div class="border-body">
+      <p>Слово <em>dziecko</em> — <strong>среднего рода</strong>. Грамматический род слова важнее реального пола людей в группе.</p>
+      <p>Алгоритм: ① Человек? ДА. ② Мужской род? НЕТ (средний род). → сразу НМЛ.</p>
+      <p><em>Dzieci bawiły się.</em> — хотя в группе могут быть мальчики.</p>
+      <div class="verdict nm">средний род → всегда НМЛ</div>
+    </div>
+  </div>
+
+  <div class="border-card">
+    <div class="border-head" onclick="tog(this)">
+      <span class="border-icon">🤖</span>
+      <span class="border-q">Роботы и андроиды «мужского пола»?</span>
+      <span class="border-toggle">▼</span>
+    </div>
+    <div class="border-body">
+      <p>Снова вопрос личности: воспринимается ли как субъект с самосознанием?</p>
+      <p>Обычный робот-механизм → НМЛ: <em>Roboty pracowały.</em></p>
+      <p>Очеловеченный персонаж с именем в художественном тексте — носители польского могут использовать МЛ, но это не строгое правило.</p>
+      <p>В обычной речи → <strong>НМЛ по умолчанию</strong>.</p>
+      <div class="verdict nm">в обычной речи → НМЛ</div>
+    </div>
+  </div>
+
+</section>
+
+<section class="default-section">
+  <div class="label" style="background:var(--gold);color:var(--dark);">Важнейшее правило</div>
+  <h2>Группа неизвестного состава → МЛ по умолчанию</h2>
+  <p class="rule-text">
+    Если слово обозначает <strong>профессию или роль мужского рода</strong>, и неизвестно, кто именно в группе —
+    польский использует <strong>мужско-личную форму</strong>. Это как русское «студенты» без уточнения пола.
+    Как только становится ясно, что группа <strong>только из женщин</strong> — переключаемся на женскую форму слова → НМЛ.
+  </p>
+  <div class="def-examples">
+    <div class="def-ex">
+      <div class="pl">Lekarze przyszli.</div>
+      <div class="ru">Врачи пришли.</div>
+      <div class="why">lekarz м.р., пол неизвестен → МЛ</div>
+    </div>
+    <div class="def-ex">
+      <div class="pl">Mama i tata poszli.</div>
+      <div class="ru">Мама и папа пошли.</div>
+      <div class="why">смешанная группа → МЛ</div>
+    </div>
+    <div class="def-ex">
+      <div class="pl">Lekarki przyszły.</div>
+      <div class="ru">Врачи-женщины пришли.</div>
+      <div class="why">lekarka ж.р. → НМЛ</div>
+    </div>
+    <div class="def-ex">
+      <div class="pl">Żołnierze walczyli.</div>
+      <div class="ru">Солдаты сражались.</div>
+      <div class="why">żołnierz м.р. → МЛ по умолчанию</div>
+    </div>
+  </div>
+</section>
+
+<section class="quiz-section">
+  <div class="label">Тест</div>
+  <h2>Определи тип — только это</h2>
+  <p>Прогони каждое слово по алгоритму в уме и выбери.</p>
+  <div id="quiz"></div>
+  <div class="quiz-score" id="score"></div>
+</section>
+
+</main>
+<footer>polski · граматика · męskoosobowy / niemęskoosobowy</footer>
+
+<script>
+function tog(head) {
+  const body = head.nextElementSibling;
+  const arrow = head.querySelector('.border-toggle');
+  const open = body.classList.contains('open');
+  body.classList.toggle('open', !open);
+  arrow.style.transform = open ? '' : 'rotate(180deg)';
+}
+
+const Q = [
+  { word:'chłopcy', hint:'ед.ч. → chłopak', ans:'m', ex:'chłopak: ① человек ✓ ② мужской род ✓ ③ человек (не животное) ✓ → МЛ' },
+  { word:'psy', hint:'ед.ч. → pies (собака, м.р.!)', ans:'nm', ex:'pies: ① животное ✗ → сразу НМЛ, хотя слово мужского рода' },
+  { word:'aktorki', hint:'ед.ч. → aktorka', ans:'nm', ex:'aktorka: ① человек ✓ ② женский род ✗ → НМЛ' },
+  { word:'bogowie', hint:'ед.ч. → bóg — личность с именем', ans:'m', ex:'bóg: ① личность ✓ ② мужской род ✓ ③ не животное ✓ → МЛ' },
+  { word:'okna', hint:'ед.ч. → okno (окно)', ans:'nm', ex:'okno: ① предмет ✗ → сразу НМЛ' },
+  { word:'dzieci', hint:'ед.ч. → dziecko — какой род?', ans:'nm', ex:'dziecko: ① человек ✓ ② средний род ✗ → НМЛ, хотя среди них могут быть мальчики' },
+  { word:'profesorowie', hint:'ед.ч. → profesor', ans:'m', ex:'profesor: ① человек ✓ ② мужской род ✓ ③ человек ✓ → МЛ' },
+  { word:'smoki', hint:'ед.ч. → smok (дракон — зверь или личность?)', ans:'nm', ex:'smok — зверь без личности: ① не личность ✗ → НМЛ' },
+  { word:'lekarki', hint:'ед.ч. → lekarka (женщина-врач)', ans:'nm', ex:'lekarka: ① человек ✓ ② женский род ✗ → НМЛ' },
+  { word:'konie', hint:'ед.ч. → koń (конь, м.р.!)', ans:'nm', ex:'koń: ① животное ✗ → сразу НМЛ, хотя мужской род' },
+];
+
+let score=0,done=0;
+const container=document.getElementById('quiz');
+Q.forEach((q,i)=>{
+  const d=document.createElement('div');
+  d.className='quiz-item';
+  d.innerHTML=`<div class="qword">${q.word}</div><div class="qhint">${q.hint}</div>
+  <div class="quiz-btns">
+    <button class="qbtn m-btn" data-i="${i}" data-a="m">Мужско-личное (МЛ)</button>
+    <button class="qbtn nm-btn" data-i="${i}" data-a="nm">Немужско-личное (НМЛ)</button>
+  </div><div class="qfeedback" id="qf${i}"></div>`;
+  container.appendChild(d);
+});
+container.addEventListener('click',e=>{
+  const btn=e.target.closest('.qbtn');
+  if(!btn||btn.disabled)return;
+  const i=+btn.dataset.i,a=btn.dataset.a;
+  const item=btn.closest('.quiz-item');
+  item.querySelectorAll('.qbtn').forEach(b=>b.disabled=true);
+  const fb=document.getElementById('qf'+i);
+  if(a===Q[i].ans){btn.classList.add('correct');fb.textContent='✓ '+Q[i].ex;fb.className='qfeedback ok';score++;}
+  else{btn.classList.add('wrong');item.querySelector('[data-a="'+Q[i].ans+'"]').classList.add('correct');fb.textContent='✗ '+Q[i].ex;fb.className='qfeedback bad';}
+  done++;
+  document.getElementById('score').textContent=`${score} / ${done} из ${Q.length}`;
+});
+</script>
+</body>
+</html>
